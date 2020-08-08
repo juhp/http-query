@@ -1,8 +1,8 @@
-name:                simple-aeson
+name:                simple-query
 version:             0.1.0
-synopsis:            Helper functions for aeson queries
+synopsis:            Simple http queries
 description:
-        Provides lookupKey functions for querying json objects.
+        Simple web API queries to JSON.
 license:             BSD3
 license-file:        LICENSE
 author:              Jens Petersen <juhpetersen@gmail.com>
@@ -22,8 +22,11 @@ source-repository head
 library
   build-depends:       base < 5
                      , aeson
+                     , bytestring
+                     , network-uri
+                     , http-conduit
                      , text
-  exposed-modules:     SimpleAeson
+  exposed-modules:     SimpleQuery
   hs-source-dirs:      src
 
   ghc-options:         -Wall
