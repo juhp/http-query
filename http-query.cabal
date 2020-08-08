@@ -1,4 +1,4 @@
-name:                simple-query
+name:                http-query
 version:             0.1.0
 synopsis:            Simple http queries
 description:
@@ -8,8 +8,8 @@ license-file:        LICENSE
 author:              Jens Petersen <juhpetersen@gmail.com>
 maintainer:          Jens Petersen <juhpetersen@gmail.com>
 copyright:           2020  Jens Petersen <juhpetersen@gmail.com>
-homepage:            https://github.com/juhp/simple-query
-bug-reports:         https://github.com/juhp/simple-query/issues
+homepage:            https://github.com/juhp/http-query
+bug-reports:         https://github.com/juhp/http-query/issues
 build-type:          Simple
 extra-doc-files:     README.md
                      ChangeLog.md
@@ -17,7 +17,7 @@ cabal-version:       1.18
 
 source-repository head
   type:                git
-  location:            https://github.com/juhp/simple-query.git
+  location:            https://github.com/juhp/http-query.git
 
 library
   build-depends:       base < 5
@@ -26,7 +26,7 @@ library
                      , network-uri
                      , http-conduit
                      , text
-  exposed-modules:     SimpleQuery
+  exposed-modules:     Network.HTTP.Query
   hs-source-dirs:      src
 
   ghc-options:         -Wall

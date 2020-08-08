@@ -1,6 +1,6 @@
 {-# LANGUAGE CPP #-}
 
-module SimpleQuery (
+module Network.HTTP.Query (
   Query,
   QueryItem,
   maybeKey,
