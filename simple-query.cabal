@@ -8,8 +8,8 @@ license-file:        LICENSE
 author:              Jens Petersen <juhpetersen@gmail.com>
 maintainer:          Jens Petersen <juhpetersen@gmail.com>
 copyright:           2020  Jens Petersen <juhpetersen@gmail.com>
-homepage:            https://github.com/juhp/simple-aeson
-bug-reports:         https://github.com/juhp/simple-aeson/issues
+homepage:            https://github.com/juhp/simple-query
+bug-reports:         https://github.com/juhp/simple-query/issues
 build-type:          Simple
 extra-doc-files:     README.md
                      ChangeLog.md
@@ -17,7 +17,7 @@ cabal-version:       1.18
 
 source-repository head
   type:                git
-  location:            https://github.com/juhp/simple-aeson.git
+  location:            https://github.com/juhp/simple-query.git
 
 library
   build-depends:       base < 5
