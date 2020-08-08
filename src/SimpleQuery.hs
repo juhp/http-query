@@ -1,6 +1,8 @@
 {-# LANGUAGE CPP #-}
 
 module SimpleQuery (
+  Query,
+  QueryItem,
   maybeKey,
   makeKey,
   makeItem,
@@ -41,17 +43,20 @@ makeKey k val = [(B.pack k, Just (B.pack val))]
 makeItem :: String -> String -> QueryItem
 makeItem k val = (B.pack k, Just (B.pack val))
 
-(/~) :: URI -> String -> URI
-url /~ pth =
-  case parseRelativeReference pth of
-    Nothing -> error $ "invalid relative path: " ++ pth
-    Just rel -> rel `relativeTo` url
+(/~) :: String -> String -> Maybe URI
+url /~ pth = do
+  uri <- parseURI url
+  rel <- parseRelativeReference pth
+  return $ rel `relativeTo` uri
 
 -- | low-level web api query
-webAPIQuery :: (MonadIO m, FromJSON a) => URI -> String -> Query -> m a
+webAPIQuery :: (MonadIO m, FromJSON a) => String -> String -> Query -> m a
 webAPIQuery url pth params =
-  let req = setRequestQueryString params $ requestFromURI_ $ url /~ pth
-  in getResponseBody <$> httpJSON req
+  case url /~ pth of
+    Nothing -> error $ "URI parsing failed for " ++ url ++ " relpath " ++ pth
+    Just uri ->
+      let req = setRequestQueryString params $ requestFromURI_ uri
+      in getResponseBody <$> httpJSON req
 
 -- | looks up key in object
 lookupKey :: FromJSON a => Text -> Object -> Maybe a
