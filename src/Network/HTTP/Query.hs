@@ -6,6 +6,7 @@ module Network.HTTP.Query (
   maybeKey,
   makeKey,
   makeItem,
+  (+/+),
   webAPIQuery,
   lookupKey,
   lookupKeyEither,
@@ -43,20 +44,24 @@ makeKey k val = [(B.pack k, Just (B.pack val))]
 makeItem :: String -> String -> QueryItem
 makeItem k val = (B.pack k, Just (B.pack val))
 
-(/~) :: String -> String -> Maybe URI
-url /~ pth = do
-  uri <- parseURI url
-  rel <- parseRelativeReference pth
-  return $ rel `relativeTo` uri
+-- | Combine two path segments with a slash
+infixr 5 +/+
+(+/+) :: String -> String -> String
+"" +/+ s = s
+s +/+ "" = s
+s +/+ t | last s == '/' = s ++ t
+        | head t == '/' = s ++ t
+s +/+ t = s ++ '/' : t
 
 -- | low-level web api query
 webAPIQuery :: (MonadIO m, FromJSON a) => String -> String -> Query -> m a
 webAPIQuery url pth params =
-  case url /~ pth of
-    Nothing -> error $ "URI parsing failed for " ++ url ++ " relpath " ++ pth
-    Just uri ->
-      let req = setRequestQueryString params $ requestFromURI_ uri
-      in getResponseBody <$> httpJSON req
+  let urlpath = url +/+ pth in
+    case parseURI urlpath of
+      Nothing -> error $ "Cannot parse uri: " ++ urlpath
+      Just uri ->
+        let req = setRequestQueryString params $ requestFromURI_ uri
+        in getResponseBody <$> httpJSON req
 
 -- | looks up key in object
 lookupKey :: FromJSON a => Text -> Object -> Maybe a
