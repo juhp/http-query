@@ -54,14 +54,13 @@ s +/+ t | last s == '/' = s ++ t
 s +/+ t = s ++ '/' : t
 
 -- | low-level web api query
-webAPIQuery :: (MonadIO m, FromJSON a) => String -> String -> Query -> m a
-webAPIQuery url pth params =
-  let urlpath = url +/+ pth in
-    case parseURI urlpath of
-      Nothing -> error $ "Cannot parse uri: " ++ urlpath
-      Just uri ->
-        let req = setRequestQueryString params $ requestFromURI_ uri
-        in getResponseBody <$> httpJSON req
+webAPIQuery :: (MonadIO m, FromJSON a) => String -> Query -> m a
+webAPIQuery url params =
+  case parseURI url of
+    Nothing -> error $ "Cannot parse uri: " ++ url
+    Just uri ->
+      let req = setRequestQueryString params $ requestFromURI_ uri
+      in getResponseBody <$> httpJSON req
 
 -- | looks up key in object
 lookupKey :: FromJSON a => Text -> Object -> Maybe a
