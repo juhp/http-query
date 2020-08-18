@@ -1,5 +1,23 @@
 {-# LANGUAGE CPP #-}
 
+{-|
+A small library for querying a Web API.
+
+@
+{-# LANGUAGE OverloadedStrings #-}
+
+import Network.HTTP.Query
+
+main = do
+  let api = "http://www.example.com/api/1"
+      endpoint = api +/+ "search"
+  res <- webAPIQuery endpoint $ makeKey "q" "needle"
+  case lookupKey "results" res of
+    Nothing -> putStrLn "Result not found"
+    Just results -> print results
+@
+-}
+
 module Network.HTTP.Query (
   Query,
   QueryItem,
@@ -36,15 +54,19 @@ maybeKey :: String -> Maybe String -> Query
 maybeKey _ Nothing = []
 maybeKey k mval = [(B.pack k, fmap B.pack mval)]
 
--- | make a singleton key-value Query
+-- | Make a singleton key-value Query
 makeKey :: String -> String -> Query
 makeKey k val = [(B.pack k, Just (B.pack val))]
 
--- | make a key-value QueryItem
+-- | Make a key-value QueryItem
 makeItem :: String -> String -> QueryItem
 makeItem k val = (B.pack k, Just (B.pack val))
 
 -- | Combine two path segments with a slash
+--
+-- > "abc" +/+ "def" == "abc/def"
+-- > "abc/" +/+ "def" == "abc/def"
+-- > "abc" +/+ "/def" == "abc/def"
 infixr 5 +/+
 (+/+) :: String -> String -> String
 "" +/+ s = s
@@ -53,8 +75,11 @@ s +/+ t | last s == '/' = s ++ t
         | head t == '/' = s ++ t
 s +/+ t = s ++ '/' : t
 
--- | low-level web api query
-webAPIQuery :: (MonadIO m, FromJSON a) => String -> Query -> m a
+-- | Low-level web api query
+webAPIQuery :: (MonadIO m, FromJSON a)
+            => String -- ^ url of endpoint
+            -> Query -- ^ query options
+            -> m a -- ^ returned json
 webAPIQuery url params =
   case parseURI url of
     Nothing -> error $ "Cannot parse uri: " ++ url
@@ -62,15 +87,15 @@ webAPIQuery url params =
       let req = setRequestQueryString params $ requestFromURI_ uri
       in getResponseBody <$> httpJSON req
 
--- | looks up key in object
+-- | Look up key in object
 lookupKey :: FromJSON a => Text -> Object -> Maybe a
 lookupKey k = parseMaybe (.: k)
 
--- | like lookupKey but returns error message if not found
+-- | Like lookupKey but returns error message if not found
 lookupKeyEither :: FromJSON a => Text -> Object -> Either String a
 lookupKeyEither k = parseEither (.: k)
 
--- | like lookupKey but raises an error if no key found
+-- | Like lookupKey but raises an error if no key found
 lookupKey' :: FromJSON a => Text -> Object -> a
 lookupKey' k =
   either error id . parseEither (.: k)
