@@ -8,6 +8,7 @@ license-file:        LICENSE
 author:              Jens Petersen <juhpetersen@gmail.com>
 maintainer:          Jens Petersen <juhpetersen@gmail.com>
 copyright:           2020  Jens Petersen <juhpetersen@gmail.com>
+category:            Web
 homepage:            https://github.com/juhp/http-query
 bug-reports:         https://github.com/juhp/http-query/issues
 build-type:          Simple
