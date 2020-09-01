@@ -1,9 +1,7 @@
 stack-all:
 	stack --resolver nightly build $(FLAGS)
 	@echo
-	stack --resolver lts build $(FLAGS)
-	@echo
-	stack --resolver lts-15 build $(FLAGS)
+	stack --resolver lts-16 build $(FLAGS)
 	@echo
 	stack --resolver lts-14 build $(FLAGS)
 	@echo
