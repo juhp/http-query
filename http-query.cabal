@@ -27,6 +27,8 @@ library
                      , network-uri
                      , http-conduit
                      , text
+  if impl(ghc < 8)
+    build-depends:     transformers
   exposed-modules:     Network.HTTP.Query
   hs-source-dirs:      src
 
