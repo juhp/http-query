@@ -1,0 +1,3 @@
+[versions]
+# lts10 has no requestFromURI_
+oldest = lts-11
