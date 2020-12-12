@@ -6,15 +6,19 @@ A small library for querying a Web API.
 @
 {-# LANGUAGE OverloadedStrings #-}
 
+import Data.Text.IO as T
 import Network.HTTP.Query
 
 main = do
   let api = "http://www.example.com/api/1"
       endpoint = api +/+ "search"
   res <- webAPIQuery endpoint $ makeKey "q" "needle"
-  case lookupKey "results" res of
-    Nothing -> putStrLn "Result not found"
-    Just results -> print results
+  T.putStrLn $
+    case lookupKey "results" res of
+      Nothing ->
+        fromMaybe "search failed" $ lookupKey "error" res
+      Just results ->
+        lookupKey' "location" results
 @
 -}
 
