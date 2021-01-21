@@ -1,6 +1,6 @@
 # simple-query
 
-Very thin layer over http-conduit for simpler web API queries.
+Very thin layer over http-conduit for simpler web json API queries.
 
 See the Network.HTTP.Query documentation for more details.
 

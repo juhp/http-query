@@ -91,6 +91,7 @@ webAPIQuery url params =
       let req = setRequestQueryString params $ requestFromURI_ uri
       in getResponseBody <$> httpJSON req
 
+-- FIXME support "key1.key2" etc
 -- | Look up key in object
 lookupKey :: FromJSON a => Text -> Object -> Maybe a
 lookupKey k = parseMaybe (.: k)
