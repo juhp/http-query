@@ -88,7 +88,9 @@ webAPIQuery url params =
   case parseURI url of
     Nothing -> error $ "Cannot parse uri: " ++ url
     Just uri ->
-      let req = setRequestQueryString params $ requestFromURI_ uri
+      let req = setRequestCheckStatus $
+                setRequestQueryString params $
+                requestFromURI_ uri
       in getResponseBody <$> httpJSON req
 
 -- FIXME support "key1.key2" etc
