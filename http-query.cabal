@@ -1,5 +1,5 @@
 name:                http-query
-version:             0.1.0
+version:             0.1.0.1
 synopsis:            Simple http queries
 description:
         Simple web API queries to JSON.
@@ -7,7 +7,7 @@ license:             BSD3
 license-file:        LICENSE
 author:              Jens Petersen <juhpetersen@gmail.com>
 maintainer:          Jens Petersen <juhpetersen@gmail.com>
-copyright:           2020  Jens Petersen <juhpetersen@gmail.com>
+copyright:           2020-2021  Jens Petersen <juhpetersen@gmail.com>
 category:            Web
 homepage:            https://github.com/juhp/http-query
 bug-reports:         https://github.com/juhp/http-query/issues

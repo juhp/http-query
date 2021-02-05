@@ -1,4 +1,4 @@
-# simple-query
+# http-query
 
 Very thin layer over http-conduit for simpler web json API queries.
 
