@@ -1,5 +1,8 @@
 # http-query
 
+[![GitHub CI](https://github.com/juhp/dl-fedora/workflows/build/badge.svg)](https://github.com/juhp/dl-fedora/actions)
+[![Hackage](http://img.shields.io/hackage/v/http-query.png)](http://hackage.haskell.org/package/http-query)
+
 Very thin layer over http-conduit for simpler web json API queries.
 
 See the Network.HTTP.Query documentation for more details.
