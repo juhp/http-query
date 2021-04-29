@@ -1,5 +1,5 @@
 name:                http-query
-version:             0.1.0.1
+version:             0.1.1
 synopsis:            Simple http queries
 description:
         Simple web API queries to JSON.

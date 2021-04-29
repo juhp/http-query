@@ -30,6 +30,7 @@ module Network.HTTP.Query (
   makeItem,
   (+/+),
   webAPIQuery,
+  apiQueryURI,
   lookupKey,
   lookupKeyEither,
   lookupKey'
@@ -92,6 +93,18 @@ webAPIQuery url params =
                 setRequestQueryString params $
                 requestFromURI_ uri
       in getResponseBody <$> httpJSON req
+
+-- | Get the URI for a web query
+apiQueryURI :: String -- ^ url of endpoint
+            -> Query -- ^ query options
+            -> URI
+apiQueryURI url params =
+  case parseURI url of
+    Nothing -> error $ "Cannot parse uri: " ++ url
+    Just uri ->
+      let req = setRequestQueryString params $
+                requestFromURI_ uri
+      in getUri req
 
 -- FIXME support "key1.key2" etc
 -- | Look up key in object
