@@ -11,8 +11,10 @@ See the Network.HTTP.Query documentation for more details.
 
 A few projects use http-query already:
 
+- https://hackage.haskell.org/package/cached-json-file
+- https://hackage.haskell.org/package/fbrnch
+- https://hackage.haskell.org/package/stack-all
 - https://github.com/juhp/bodhi-hs
 - https://github.com/juhp/copr-hs
 - https://github.com/juhp/pagure-hs
 - https://github.com/juhp/pdc-hs
-- https://github.com/juhp/fbrnch
