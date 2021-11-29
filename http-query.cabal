@@ -25,7 +25,7 @@ library
                      , aeson
                      , bytestring
                      , network-uri
-                     , http-conduit
+                     , http-conduit >= 2.3.2
                      , text
   if impl(ghc < 8)
     build-depends:     transformers
