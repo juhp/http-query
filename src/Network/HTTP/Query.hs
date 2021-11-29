@@ -37,6 +37,9 @@ module Network.HTTP.Query (
   ) where
 
 import Control.Monad.IO.Class (MonadIO)
+#if MIN_VERSION_aeson(2,0,0)
+import Data.Aeson.Key (fromText)
+#endif
 import Data.Aeson.Types
 #if !MIN_VERSION_http_conduit(2,3,3)
 import Data.ByteString (ByteString)
@@ -109,13 +112,19 @@ apiQueryURI url params =
 -- FIXME support "key1.key2" etc
 -- | Look up key in object
 lookupKey :: FromJSON a => Text -> Object -> Maybe a
-lookupKey k = parseMaybe (.: k)
+lookupKey k =
+  parseMaybe (.: fromText k)
 
 -- | Like lookupKey but returns error message if not found
 lookupKeyEither :: FromJSON a => Text -> Object -> Either String a
-lookupKeyEither k = parseEither (.: k)
+lookupKeyEither k = parseEither (.: fromText k)
 
 -- | Like lookupKey but raises an error if no key found
 lookupKey' :: FromJSON a => Text -> Object -> a
 lookupKey' k =
-  either error id . parseEither (.: k)
+  either error id . parseEither (.: fromText k)
+
+#if !MIN_VERSION_aeson(2,0,0)
+fromText :: Text -> Text
+fromText = id
+#endif
