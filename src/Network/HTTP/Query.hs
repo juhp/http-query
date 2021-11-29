@@ -36,6 +36,9 @@ module Network.HTTP.Query (
   lookupKey'
   ) where
 
+#if !MIN_VERSION_base(4,8,0)
+import Control.Applicative ((<$>))
+#endif
 import Control.Monad.IO.Class (MonadIO)
 #if MIN_VERSION_aeson(2,0,0)
 import Data.Aeson.Key (fromText)
