@@ -23,14 +23,15 @@ main = do
 -}
 
 module Network.HTTP.Query (
+  withURLQuery,
+  webAPIQuery,
+  apiQueryURI,
   Query,
   QueryItem,
   maybeKey,
   makeKey,
   makeItem,
   (+/+),
-  webAPIQuery,
-  apiQueryURI,
   lookupKey,
   lookupKeyEither,
   lookupKey'
@@ -86,16 +87,9 @@ s +/+ t | last s == '/' = s ++ t
         | head t == '/' = s ++ t
 s +/+ t = s ++ '/' : t
 
--- | Low-level web api query
-webAPIQuery :: (MonadIO m, FromJSON a)
-            => String -- ^ URL of endpoint
-            -> Query -- ^ query options
-            -> m a -- ^ returned JSON
-webAPIQuery url params =
-  withURL url params $ fmap getResponseBody . httpJSON
-
-withURL :: String -> Query -> (Request -> a) -> a
-withURL url params act =
+-- | Sets up an API query for some action
+withURLQuery :: String -> Query -> (Request -> a) -> a
+withURLQuery url params act =
   case parseURI url of
     Nothing -> error $ "Cannot parse uri: " ++ url
     Just uri ->
@@ -103,12 +97,20 @@ withURL url params act =
                 requestFromURI_ uri
       in act req
 
+-- | Low-level web api query
+webAPIQuery :: (MonadIO m, FromJSON a)
+            => String -- ^ URL of endpoint
+            -> Query -- ^ query options
+            -> m a -- ^ returned JSON
+webAPIQuery url params =
+  withURLQuery url params $ fmap getResponseBody . httpJSON
+
 -- | Get the URI for a web query
 apiQueryURI :: String -- ^ url of endpoint
             -> Query -- ^ query options
             -> URI
 apiQueryURI url params =
-  withURL url params $ getUri
+  withURLQuery url params $ getUri
 
 -- FIXME support "key1.key2" etc
 -- | Look up key in object
