@@ -87,7 +87,7 @@ s +/+ t | last s == '/' = s ++ t
         | head t == '/' = s ++ t
 s +/+ t = s ++ '/' : t
 
--- | Sets up an API query for some action
+-- | Sets up an API request for some action
 withURLQuery :: String -> Query -> (Request -> a) -> a
 withURLQuery url params act =
   case parseURI url of
@@ -106,11 +106,11 @@ webAPIQuery url params =
   withURLQuery url params $ fmap getResponseBody . httpJSON
 
 -- | Get the URI for a web query
-apiQueryURI :: String -- ^ url of endpoint
+apiQueryURI :: String -- ^ URL of endpoint
             -> Query -- ^ query options
             -> URI
 apiQueryURI url params =
-  withURLQuery url params $ getUri
+  withURLQuery url params getUri
 
 -- FIXME support "key1.key2" etc
 -- | Look up key in object

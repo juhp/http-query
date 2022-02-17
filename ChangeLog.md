@@ -1,5 +1,8 @@
 # Revision history for http-query
 
+## 0.1.3 (2022-02-17)
+- new withURLQuery setup function
+
 ## 0.1.2 (2022-02-17)
 - webAPIQuery: revert to not using setRequestCheckStatus
 
