@@ -23,15 +23,18 @@ main = do
 -}
 
 module Network.HTTP.Query (
+  -- * Queries
   withURLQuery,
   webAPIQuery,
   apiQueryURI,
+  (+/+),
+  -- * Query parameters
   Query,
   QueryItem,
   maybeKey,
   makeKey,
   makeItem,
-  (+/+),
+  -- * Lookup fields
   lookupKey,
   lookupKeyEither,
   lookupKey'
