@@ -3,9 +3,9 @@
 [![GitHub CI](https://github.com/juhp/http-query/workflows/build/badge.svg)](https://github.com/juhp/http-query/actions)
 [![Hackage](http://img.shields.io/hackage/v/http-query.png)](http://hackage.haskell.org/package/http-query)
 
-Very thin layer over http-conduit for simpler web json API queries.
+Very thin layer over http-conduit for simpler web API JSON queries.
 
-See the Network.HTTP.Query documentation for more details.
+See the [Network.HTTP.Query](https://hackage.haskell.org/package/http-query/docs/Network-HTTP-Query.html) documentation for more details.
 
 ## Examples
 
