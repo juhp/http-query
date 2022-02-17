@@ -88,28 +88,27 @@ s +/+ t = s ++ '/' : t
 
 -- | Low-level web api query
 webAPIQuery :: (MonadIO m, FromJSON a)
-            => String -- ^ url of endpoint
+            => String -- ^ URL of endpoint
             -> Query -- ^ query options
-            -> m a -- ^ returned json
+            -> m a -- ^ returned JSON
 webAPIQuery url params =
+  withURL url params $ fmap getResponseBody . httpJSON
+
+withURL :: String -> Query -> (Request -> a) -> a
+withURL url params act =
   case parseURI url of
     Nothing -> error $ "Cannot parse uri: " ++ url
     Just uri ->
       let req = setRequestQueryString params $
                 requestFromURI_ uri
-      in getResponseBody <$> httpJSON req
+      in act req
 
 -- | Get the URI for a web query
 apiQueryURI :: String -- ^ url of endpoint
             -> Query -- ^ query options
             -> URI
 apiQueryURI url params =
-  case parseURI url of
-    Nothing -> error $ "Cannot parse uri: " ++ url
-    Just uri ->
-      let req = setRequestQueryString params $
-                requestFromURI_ uri
-      in getUri req
+  withURL url params $ getUri
 
 -- FIXME support "key1.key2" etc
 -- | Look up key in object
