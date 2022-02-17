@@ -1,5 +1,8 @@
 # Revision history for http-query
 
+## 0.1.2 (2022-02-17)
+- webAPIQuery: revert to not using setRequestCheckStatus
+
 ## 0.1.1 (2021-11-29)
 - add apiQueryURI: returns the URI of a query
 - fix build with aeson-2.0

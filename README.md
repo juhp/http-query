@@ -14,7 +14,7 @@ A few projects use http-query already:
 - https://hackage.haskell.org/package/cached-json-file
 - https://hackage.haskell.org/package/fbrnch
 - https://hackage.haskell.org/package/stack-all
-- https://github.com/juhp/bodhi-hs
-- https://github.com/juhp/copr-hs
-- https://github.com/juhp/pagure-hs
-- https://github.com/juhp/pdc-hs
+- https://hackage.haskell.org/package/bodhi
+- https://hackage.haskell.org/package/copr-api
+- https://hackage.haskell.org/package/pagure
+- https://hackage.haskell.org/package/pdc
