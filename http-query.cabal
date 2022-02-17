@@ -29,13 +29,9 @@ library
                      , text
   if impl(ghc < 8)
     build-depends:     transformers
-  if impl(ghc<8.3)
-    build-depends:
-                       http-client < 0.7.11 || > 0.7.11,
-                       http-client-tls < 0.3.6 || > 0.3.6
   exposed-modules:     Network.HTTP.Query
   hs-source-dirs:      src
-
+  default-language:    Haskell2010
   ghc-options:         -Wall
   if impl(ghc >= 8.0)
     ghc-options:       -Wcompat
@@ -48,5 +44,3 @@ library
   if impl(ghc >= 8.4)
     ghc-options:       -Wmissing-export-lists
                        -Wpartial-fields
-
-  default-language:    Haskell2010
