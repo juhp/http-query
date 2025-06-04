@@ -52,6 +52,7 @@ import Data.Aeson.Types
 import Data.ByteString (ByteString)
 #endif
 import qualified Data.ByteString.Char8 as B
+import qualified Data.List as L
 import Data.Text (Text)
 import Network.HTTP.Client.Conduit
 import Network.HTTP.Simple
