@@ -84,11 +84,11 @@ makeItem k val = (B.pack k, Just (B.pack val))
 -- > "abc" +/+ "/def" == "abc/def"
 infixr 5 +/+
 (+/+) :: String -> String -> String
-"" +/+ s = s
-s +/+ "" = s
-s +/+ t | last s == '/' = s ++ t
-        | head t == '/' = s ++ t
-s +/+ t = s ++ '/' : t
+s +/+ t =
+  case (s,t) of
+    ("",_) -> t
+    (_,"") -> s
+    (_,_) -> L.dropWhileEnd (== '/') s ++ '/' : L.dropWhile (== '/') t
 
 -- | Sets up an API request for some action
 withURLQuery :: String -> Query -> (Request -> a) -> a
