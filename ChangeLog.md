@@ -1,5 +1,8 @@
 # Revision history for http-query
 
+## 0.1.3.1 (2026-02-08)
+- update to safer +/+ without head and last
+
 ## 0.1.3 (2022-02-17)
 - new withURLQuery setup function
 

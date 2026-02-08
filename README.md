@@ -9,12 +9,12 @@ See the [Network.HTTP.Query](https://hackage.haskell.org/package/http-query/docs
 
 ## Examples
 
-A few projects use http-query already:
+Some projects that use http-query:
 
-- <https://hackage.haskell.org/package/cached-json-file>
-- <https://hackage.haskell.org/package/fbrnch>
-- <https://hackage.haskell.org/package/stack-all>
 - <https://hackage.haskell.org/package/bodhi>
+- <https://hackage.haskell.org/package/cabal-rpm>
+- <https://hackage.haskell.org/package/cached-json-file>
 - <https://hackage.haskell.org/package/copr-api>
+- <https://hackage.haskell.org/package/fbrnch>
 - <https://hackage.haskell.org/package/pagure>
-- <https://hackage.haskell.org/package/pdc>
+- <https://hackage.haskell.org/package/stack-all>
